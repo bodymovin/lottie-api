@@ -1,10 +1,10 @@
 var LayerList = require('../LayerList');
-var LayerItem = require('../LayerItem');
+var LayerBase = require('../LayerBase');
 
 function Composition(state) {
 	return Object.assign({}
 		, LayerList(state.elements)
-		, LayerItem(state));
+		, LayerBase(state));
 }
 
 module.exports = Composition;

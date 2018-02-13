@@ -1,11 +1,11 @@
-var LayerItem = require('../LayerItem');
+var LayerBase = require('../LayerBase');
 
 function Image(element) {
 
 	var methods = {
 	}
 
-	return Object.assign({}, LayerItem(element), methods);
+	return Object.assign({}, LayerBase(element), methods);
 }
 
 module.exports = Image;

@@ -1,4 +1,4 @@
-var LayerItem = require('../LayerItem');
+var LayerBase = require('../LayerBase');
 
 function Text(element) {
 
@@ -30,7 +30,7 @@ function Text(element) {
 		setMinimumFontSize: setMinimumFontSize
 	}
 
-	return Object.assign({}, LayerItem(element), methods);
+	return Object.assign({}, LayerBase(element), methods);
 }
 
 module.exports = Text;

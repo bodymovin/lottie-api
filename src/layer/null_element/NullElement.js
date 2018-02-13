@@ -1,11 +1,11 @@
-var LayerItem = require('../LayerItem');
+var LayerBase = require('../LayerBase');
 
 function NullElement() {
 
 	var methods = {
 	}
 
-	return Object.assign({}, LayerItem(element), methods);
+	return Object.assign({}, LayerBase(element), methods);
 }
 
 module.exports = NullElement;

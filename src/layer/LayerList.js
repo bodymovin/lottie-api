@@ -1,34 +1,7 @@
 var layer_types = require('../enums/layer_types');
-var TextElement = require('./text/Text');
-var ShapeElement = require('./shape/Shape');
-var NullElement = require('./null_element/NullElement');
-var SolidElement = require('./solid/SolidElement');
-var ImageElement = require('./solid/SolidElement');
-var LayerItem = require('./LayerItem');
+var layer_api = require('../helpers/layerAPIBuilder');
 
 function LayerList(elements) {
-
-	function getLayerApi(element) {
-		//TODO search a solution for this recursive case: a Composition is a LayerList but also a LayerList can return a Composition
-		var Composition = require('./composition/Composition');
-		var layerType = element.data.ty;
-		switch(layerType) {
-			case 0:
-			return Composition(element);
-			case 1:
-			return SolidElement(element);
-			case 2:
-			return ImageElement(element);
-			case 3:
-			return NullElement(element);
-			case 4:
-			return ShapeElement(element);
-			case 5:
-			return TextElement(element);
-			default:
-			return LayerItem(element);
-		}
-	}
 
 	function _getLength() {
 		return elements.length;
@@ -64,7 +37,7 @@ function LayerList(elements) {
 		if (index >= elements.length) {
 			return [];
 		}
-		return getLayerApi(elements[parseInt(index)]);
+		return layer_api(elements[parseInt(index)]);
 	}
 
 	function addIteratableMethods(iteratableMethods, list) {
@@ -73,8 +46,9 @@ function LayerList(elements) {
 			accumulator[value] = function() {
 				var _arguments = arguments;
 				return elements.map(function(element){
-					if(getLayerApi(element)[_value]) {
-						return getLayerApi(element)[_value].apply(null, _arguments);
+					var layer = layer_api(element);
+					if(layer[_value]) {
+						return layer[_value].apply(null, _arguments);
 					}
 					return null;
 				});
@@ -87,15 +61,21 @@ function LayerList(elements) {
 		return elements;
 	}
 
+	function concat(list) {
+		return elements.concat(list.getTargetElements());
+	}
+
 	var methods = {
 		getLayers: getLayers,
 		getLayersByType: getLayersByType,
 		getLayersByName: getLayersByName,
 		layer: layer,
+		concat: concat,
 		getTargetElements: getTargetElements
 	};
 
-	addIteratableMethods(['setText', 'getText', 'setDocumentData', 'canResizeFont', 'setMinimumFontSize', 'getType', 'getDuration']);
+	addIteratableMethods(['setTranslate', 'getType', 'getDuration']);
+	addIteratableMethods(['setText', 'getText', 'setDocumentData', 'canResizeFont', 'setMinimumFontSize']);
 
 	Object.defineProperty(methods, 'length', {
 		get: _getLength
