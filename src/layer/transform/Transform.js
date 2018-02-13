@@ -1,29 +1,30 @@
 var KeyPathNode = require('../../key_path/KeyPathNode');
 var Property = require('../../property/Property');
 
-function Transform(element) {
+function Transform(props) {
 	var state = {
 		properties: _buildPropertyMap()
 	}
 
 	function setAnchorPoint(value) {
-		Property(element.finalTransform.mProp.a).setValue(value);
+		Property(props.a).setValue(value);
 	}
 
 	function setPosition(value) {
-		Property(element.finalTransform.mProp.p).setValue(value);
+		Property(props.p).setValue(value);
 	}
 
 	function setScale(value) {
-		Property(element.finalTransform.mProp.s).setValue(value);
+		Property(props.s).setValue(value);
 	}
 
 	function setRotation(value) {
-		Property(element.finalTransform.mProp.r).setValue(value);
+		console.log('ASDASD', props.r)
+		Property(props.r).setValue(value);
 	}
 
 	function setOpacity(value) {
-		Property(element.finalTransform.mProp.o).setValue(value);
+		Property(props.o).setValue(value);
 	}
 
 	function _buildPropertyMap() {

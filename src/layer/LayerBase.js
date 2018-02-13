@@ -3,7 +3,7 @@ var Transform = require('./transform/Transform');
 
 function LayerBase(state) {
 
-	var transform = Transform(state.element);
+	var transform = Transform(state.element.finalTransform.mProp);
 
 	function _getTransform() {
 		return transform;
