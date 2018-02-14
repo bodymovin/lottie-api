@@ -7,6 +7,8 @@ var ShapeGradientFill = require('./ShapeGradientFill');
 var ShapeGradientStroke = require('./ShapeGradientStroke');
 var ShapeTrimPaths = require('./ShapeTrimPaths');
 var ShapeRepeater = require('./ShapeRepeater');
+var ShapePolystar = require('./ShapePolystar');
+var ShapeRoundCorners = require('./ShapeRoundCorners');
 var Transform = require('../transform/Transform');
 
 function ShapeGroup(element, data) {
@@ -41,6 +43,10 @@ function ShapeGroup(element, data) {
 	   			return ShapeTrimPaths(element.it[index])
 	   		} else if(shape.ty === 'rp') {
 	   			return ShapeRepeater(element.it[index])
+	   		} else if(shape.ty === 'sr') {
+	   			return ShapePolystar(element.it[index])
+	   		} else if(shape.ty === 'rd') {
+	   			return ShapeRoundCorners(element.it[index])
 	   		} else if(shape.ty === 'tr') {
 	   			return Transform(element.it[index].transform.mProps)
 	   		} else {

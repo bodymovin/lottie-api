@@ -9,6 +9,7 @@ function ShapeRepeater(element) {
 	}
 
 	function setCopies(value) {
+		console.log('setCopies')
 		Property(element.c).setValue(value);
 	}
 

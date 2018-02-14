@@ -22,19 +22,19 @@ function ShapeRectangle(element) {
 	function _buildPropertyMap() {
 		return [
 			{
-				name: 'size',
+				name: 'Size',
 				value: {
 					setValue: setSize
 				}
 			},
 			{
-				name: 'position',
+				name: 'Position',
 				value: {
 					setValue: setPosition
 				}
 			},
 			{
-				name: 'roundness',
+				name: 'Roundness',
 				value: {
 					setValue: setRoundness
 				}

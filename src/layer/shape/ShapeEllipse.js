@@ -18,13 +18,13 @@ function ShapeEllipse(element) {
 	function _buildPropertyMap() {
 		return [
 			{
-				name: 'size',
+				name: 'Size',
 				value: {
 					setValue: setSize
 				}
 			},
 			{
-				name: 'position',
+				name: 'Position',
 				value: {
 					setValue: setPosition
 				}
