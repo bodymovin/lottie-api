@@ -1,4 +1,4 @@
-var TextElement = require('../layer/text/Text');
+var TextElement = require('../layer/text/TextElement');
 var ShapeElement = require('../layer/shape/Shape');
 var NullElement = require('../layer/null_element/NullElement');
 var SolidElement = require('../layer/solid/SolidElement');

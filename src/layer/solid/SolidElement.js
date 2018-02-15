@@ -11,13 +11,6 @@ function Solid(element) {
 
 	function _buildPropertyMap() {
 		return [
-			{
-				name: 'width',
-				value: function() {
-					
-					return 100;
-				}
-			}
 		]
 	}
 

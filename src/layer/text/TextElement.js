@@ -1,6 +1,18 @@
 var LayerBase = require('../LayerBase');
 
-function Text(element) {
+function TextElement(element) {
+
+	var instance = {};
+
+	var state = {
+		element: element,
+		properties: _buildPropertyMap()
+	}
+
+	function _buildPropertyMap() {
+		return [
+		]
+	}
 
 	function getText() {
 		return element.textProperty.currentData.t;
@@ -30,7 +42,8 @@ function Text(element) {
 		setMinimumFontSize: setMinimumFontSize
 	}
 
-	return Object.assign({}, LayerBase(element), methods);
+	return Object.assign(instance, LayerBase(state), methods);
+
 }
 
-module.exports = Text;
+module.exports = TextElement;

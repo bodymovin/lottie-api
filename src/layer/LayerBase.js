@@ -2,7 +2,7 @@ var KeyPathNode = require('../key_path/KeyPathNode');
 var Transform = require('./transform/Transform');
 
 function LayerBase(state) {
-
+	
 	var transform = Transform(state.element.finalTransform.mProp);
 
 	function _getTransform() {
