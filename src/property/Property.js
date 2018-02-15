@@ -1,6 +1,9 @@
 function Property(property) {
 	
 	function setValue(value) {
+		if(!property || !property.addEffect) {
+			return;
+		}
 		if (typeof value === 'function') {
 			property.addEffect(value);
 		} else if (property.propType === 'multidimensional' && typeof value === 'object' && value.length === 2) {

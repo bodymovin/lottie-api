@@ -12,6 +12,9 @@ function LayerBase(state) {
 	state.properties.push({
 		name: 'transform',
 		value: transform
+	},{
+		name: 'Transform',
+		value: transform
 	})
 
 	function getName() {
