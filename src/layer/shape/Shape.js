@@ -9,6 +9,7 @@ var ShapeTrimPaths = require('./ShapeTrimPaths');
 var ShapeRepeater = require('./ShapeRepeater');
 var ShapePolystar = require('./ShapePolystar');
 var ShapeRoundCorners = require('./ShapeRoundCorners');
+var ShapePath = require('./ShapePath');
 var Transform = require('../transform/Transform');
 
 function Shape(element, shapesData, shapes) {
@@ -27,31 +28,33 @@ function Shape(element, shapesData, shapes) {
 		Object.defineProperty(ob, 'value', {
 		   get() { 
 	   		if(shape.ty === 'gr') {
-	   			return Shape(element, shapesData[index].it, shapes[index].it)
+	   			return Shape(element, shapesData[index].it, shapes[index].it);
 	   		} else if(shape.ty === 'rc') {
-	   			return ShapeRectangle(shapes[index])
+	   			return ShapeRectangle(shapes[index]);
 	   		} else if(shape.ty === 'el') {
-	   			return ShapeEllipse(shapes[index])
+	   			return ShapeEllipse(shapes[index]);
 	   		} else if(shape.ty === 'fl') {
-	   			return ShapeFill(shapes[index])
+	   			return ShapeFill(shapes[index]);
 	   		} else if(shape.ty === 'st') {
-	   			return ShapeStroke(shapes[index])
+	   			return ShapeStroke(shapes[index]);
 	   		} else if(shape.ty === 'gf') {
-	   			return ShapeGradientFill(shapes[index])
+	   			return ShapeGradientFill(shapes[index]);
 	   		} else if(shape.ty === 'gs') {
-	   			return ShapeGradientStroke(shapes[index])
+	   			return ShapeGradientStroke(shapes[index]);
 	   		} else if(shape.ty === 'tm') {
-	   			return ShapeTrimPaths(shapes[index])
+	   			return ShapeTrimPaths(shapes[index]);
 	   		} else if(shape.ty === 'rp') {
-	   			return ShapeRepeater(shapes[index])
+	   			return ShapeRepeater(shapes[index]);
 	   		} else if(shape.ty === 'sr') {
-	   			return ShapePolystar(shapes[index])
+	   			return ShapePolystar(shapes[index]);
 	   		} else if(shape.ty === 'rd') {
-	   			return ShapeRoundCorners(shapes[index])
+	   			return ShapeRoundCorners(shapes[index]);
+	   		} else if(shape.ty === 'sh') {
+	   			return ShapePath(shapes[index]);
 	   		} else if(shape.ty === 'tr') {
-	   			return Transform(shapes[index].transform.mProps)
+	   			return Transform(shapes[index].transform.mProps);
 	   		} else {
-	   			console.log(shape.ty)
+	   			console.log(shape.ty);
 	   		}
 		   }
 		});
