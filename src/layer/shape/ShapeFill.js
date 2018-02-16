@@ -3,7 +3,6 @@ var Property = require('../../property/Property');
 
 function ShapeFill(element) {
 
-	console.log(element)
 	var state = {
 		properties: _buildPropertyMap()
 	}

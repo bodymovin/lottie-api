@@ -41,7 +41,6 @@ function KeyPathList(elements, node_type) {
 
 	function getPropertiesBySelector(selector) {
 		return KeyPathList(elements.filter(function(element) {
-			//console.log(element)
 			return element.hasProperty(selector);
 		}).map(function(element) {
 			return element.getProperty(selector);

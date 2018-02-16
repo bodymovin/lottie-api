@@ -1,9 +1,11 @@
 var LayerBase = require('../LayerBase');
+var Text = require('./Text');
 
 function TextElement(element) {
 
 	var instance = {};
 
+	var TextProperty = Text(element);
 	var state = {
 		element: element,
 		properties: _buildPropertyMap()
@@ -11,6 +13,14 @@ function TextElement(element) {
 
 	function _buildPropertyMap() {
 		return [
+			{
+				name: 'text',
+				value: TextProperty
+			},
+			{
+				name: 'Text',
+				value: TextProperty
+			}
 		]
 	}
 

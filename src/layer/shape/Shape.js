@@ -1,13 +1,23 @@
 var LayerBase = require('../LayerBase');
-var ShapeGroup = require('./ShapeGroup');
+var ShapeRectangle = require('./ShapeRectangle');
+var ShapeFill = require('./ShapeFill');
+var ShapeStroke = require('./ShapeStroke');
+var ShapeEllipse = require('./ShapeEllipse');
+var ShapeGradientFill = require('./ShapeGradientFill');
+var ShapeGradientStroke = require('./ShapeGradientStroke');
+var ShapeTrimPaths = require('./ShapeTrimPaths');
+var ShapeRepeater = require('./ShapeRepeater');
+var ShapePolystar = require('./ShapePolystar');
+var ShapeRoundCorners = require('./ShapeRoundCorners');
+var Transform = require('../transform/Transform');
 
-function Shape(element) {
+function Shape(element, shapesData, shapes) {
 
 	var instance = {};
 
 	var state = {
-		element: element,
-		properties: _buildPropertyMap()
+		properties: _buildPropertyMap(),
+		element: element
 	}
 
 	function buildShapeObject(shape, index) {
@@ -17,8 +27,31 @@ function Shape(element) {
 		Object.defineProperty(ob, 'value', {
 		   get() { 
 	   		if(shape.ty === 'gr') {
-	   			var group = ShapeGroup(element.itemsData[index], shape)
-	   			return group
+	   			return Shape(element, shapesData[index].it, shapes[index].it)
+	   		} else if(shape.ty === 'rc') {
+	   			return ShapeRectangle(shapes[index])
+	   		} else if(shape.ty === 'el') {
+	   			return ShapeEllipse(shapes[index])
+	   		} else if(shape.ty === 'fl') {
+	   			return ShapeFill(shapes[index])
+	   		} else if(shape.ty === 'st') {
+	   			return ShapeStroke(shapes[index])
+	   		} else if(shape.ty === 'gf') {
+	   			return ShapeGradientFill(shapes[index])
+	   		} else if(shape.ty === 'gs') {
+	   			return ShapeGradientStroke(shapes[index])
+	   		} else if(shape.ty === 'tm') {
+	   			return ShapeTrimPaths(shapes[index])
+	   		} else if(shape.ty === 'rp') {
+	   			return ShapeRepeater(shapes[index])
+	   		} else if(shape.ty === 'sr') {
+	   			return ShapePolystar(shapes[index])
+	   		} else if(shape.ty === 'rd') {
+	   			return ShapeRoundCorners(shapes[index])
+	   		} else if(shape.ty === 'tr') {
+	   			return Transform(shapes[index].transform.mProps)
+	   		} else {
+	   			console.log(shape.ty)
 	   		}
 		   }
 		});
@@ -26,7 +59,7 @@ function Shape(element) {
 	}
 
 	function _buildPropertyMap() {
-		var shapes = element.data.shapes.map(function(shape, index) {
+		var shapes = shapesData.map(function(shape, index) {
 			return buildShapeObject(shape, index)
 		});
 		return shapes

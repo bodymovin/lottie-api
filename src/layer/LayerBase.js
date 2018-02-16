@@ -1,21 +1,27 @@
 var KeyPathNode = require('../key_path/KeyPathNode');
 var Transform = require('./transform/Transform');
+var Effects = require('./effects/Effects');
 
 function LayerBase(state) {
-	
+
 	var transform = Transform(state.element.finalTransform.mProp);
+	var effects = Effects(state.element.effectsManager.effectElements);
 
-	function _getTransform() {
-		return transform;
+	function _buildPropertyMap() {
+		state.properties.push({
+			name: 'transform',
+			value: transform
+		},{
+			name: 'Transform',
+			value: transform
+		},{
+			name: 'Effects',
+			value: effects
+		},{
+			name: 'effects',
+			value: effects
+		})
 	}
-
-	state.properties.push({
-		name: 'transform',
-		value: transform
-	},{
-		name: 'Transform',
-		value: transform
-	})
 
 	function getName() {
 		return state.element.data.nm;
@@ -40,15 +46,7 @@ function LayerBase(state) {
 		getTargetElement: getTargetElement
 	}
 
-	Object.defineProperty(methods, 'name', {
-		get: getName,
-		enumerable: true
-	})
-
-	Object.defineProperty(methods, 'transform', {
-		get: _getTransform,
-		enumerable: true
-	})
+	_buildPropertyMap();
 
 	return Object.assign(methods, KeyPathNode(state));
 }

@@ -20,7 +20,7 @@ module.exports = function getLayerApi(element) {
 		case 3:
 		return NullElement(element);
 		case 4:
-		return ShapeElement(element);
+		return ShapeElement(element, element.data.shapes, element.itemsData);
 		case 5:
 		return TextElement(element);
 		case 13:
