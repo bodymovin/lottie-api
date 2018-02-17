@@ -22,10 +22,26 @@ function AnimationItemFactory(animation) {
 		}
 	}
 
+	function toKeypathLayerPoint(properties, point) {
+		var i, len = properties.length;
+		for (i = 0; i < len; i += 1) {
+			return properties.getPropertyAtIndex(i).toKeypathLayerPoint(point);
+		}
+	}
+
+	function fromKeypathLayerPoint(properties, point) {
+		var i, len = properties.length;
+		for (i = 0; i < len; i += 1) {
+			return properties.getPropertyAtIndex(i).fromKeypathLayerPoint(point);
+		}
+	}
+
 	return Object.assign({
 		getCurrentFrame: getCurrentFrame,
 		getCurrentTime: getCurrentTime,
-		addValueCallback: addValueCallback
+		addValueCallback: addValueCallback,
+		toKeypathLayerPoint: toKeypathLayerPoint,
+		fromKeypathLayerPoint: fromKeypathLayerPoint
 	}, Renderer(state));
 }
 

@@ -71,7 +71,9 @@ function Shape(element, shapesData, shapes) {
 	var methods = {
 	}
 
-	return Object.assign({}, LayerBase(state), methods);
+	var instance = Object.assign({}, LayerBase(state), methods);
+	console.log('instance: ', instance)
+	return instance;
 }
 
 module.exports = Shape;
