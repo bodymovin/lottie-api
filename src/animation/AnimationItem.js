@@ -1,10 +1,11 @@
 var Renderer = require('../renderer/Renderer');
+var layer_api = require('../helpers/layerAPIBuilder');
 
 function AnimationItemFactory(animation) {
 
 	var state = {
 		animation: animation,
-		elements: animation.renderer._br || animation.renderer.elements
+		elements: animation.renderer.elements.map((item) => layer_api(item))
 	}
 
 	function getCurrentFrame() {
@@ -36,13 +37,20 @@ function AnimationItemFactory(animation) {
 		}
 	}
 
-	return Object.assign({
+	function getKeyPath() {
+
+	}
+
+	var methods = {
 		getCurrentFrame: getCurrentFrame,
+		getKeyPath: getKeyPath,
 		getCurrentTime: getCurrentTime,
 		addValueCallback: addValueCallback,
 		toKeypathLayerPoint: toKeypathLayerPoint,
 		fromKeypathLayerPoint: fromKeypathLayerPoint
-	}, Renderer(state));
+	}
+
+	return Object.assign({}, Renderer(state), methods);
 }
 
 module.exports = AnimationItemFactory;

@@ -16,14 +16,28 @@ function Composition(element) {
 		Property(element.tm).setValue(value);
 	}
 
+	function buildLayerApi(layer, index) {
+		var _layerApi = null;
+		var ob = {
+			name: layer.nm
+		}
+
+		function getLayerApi() {
+			if(!_layerApi) {
+				_layerApi = layer_api(element.elements[index])
+			}
+			return _layerApi
+		}
+
+		Object.defineProperty(ob, 'value', {
+			get : getLayerApi
+		})
+		return ob;
+	}
+
 	
 	function _buildPropertyMap() {
-		var compositionLayers = element.layers.map(function(layer, index) {
-			return {
-				name: layer.nm,
-				value: layer_api(element.elements[index])
-			};
-		})
+		var compositionLayers = element.layers.map(buildLayerApi)
 		return [
 			{
 				name: 'Time Remap',

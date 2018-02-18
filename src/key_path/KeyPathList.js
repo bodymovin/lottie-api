@@ -1,6 +1,4 @@
 var keyPathBuilder = require('../helpers/keyPathBuilder');
-var layer_api = require('../helpers/layerAPIBuilder');
-var sanitizeString = require('../helpers/stringSanitizer');
 var layer_types = require('../enums/layer_types');
 
 function KeyPathList(elements, node_type) {
@@ -11,21 +9,20 @@ function KeyPathList(elements, node_type) {
 
 	function _filterLayerByType(elements, type) {
 		return elements.filter(function(element) {
-			return element.data.ty === layer_types[type];
+			return element.getTargetLayer().data.ty === layer_types[type];
 		});
 	}
 
 	function _filterLayerByName(elements, name) {
 		return elements.filter(function(element) {
-			return element.data.nm === name;
+			return element.getTargetLayer().data.nm === name;
 		});
 	}
 
 	function _filterLayerByProperty(elements, name) {
 		return elements.filter(function(element) {
-			var layerAPI = layer_api(element);
-			if(layerAPI.hasProperty(name)) {
-				return layerAPI.getProperty(name);
+			if(element.hasProperty(name)) {
+				return element.getProperty(name);
 			}
 			return false;
 		});
@@ -50,14 +47,14 @@ function KeyPathList(elements, node_type) {
 	function getLayerProperty(selector) {
 		var layers = _filterLayerByProperty(elements, selector);
 		var properties = layers.map(function(element){
-			return layer_api(element).getProperty(selector);
+			return element.getProperty(selector);
 		})
 		return KeyPathList(properties, 'property');
 	}
 
 	function getKeyPath(propertyPath) {
 		var keyPathData = keyPathBuilder(propertyPath);
-		var selector = sanitizeString(keyPathData.selector);
+		var selector = keyPathData.selector;
 		var nodesByName, nodesByType, selectedNodes;
 		if (node_type === 'renderer' || node_type === 'layer') {
 			nodesByName = getLayersByName(selector);
@@ -92,9 +89,8 @@ function KeyPathList(elements, node_type) {
 	}
 
 	function getPropertyAtIndex(index) {
-		console.log('node_type: ', node_type)
 		if(node_type === 'layer') {
-			return layer_api(elements[index]);
+			return elements[index];
 		} else {
 			return elements[index];
 		}

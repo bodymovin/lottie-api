@@ -24,33 +24,6 @@ function LayerBase(state) {
 		})
 	}
 
-	function getTargetElement() {
-		return state.element;
-	}
-
-	/*
-	function fromWorld(arr, time){
-        var toWorldMat = new Matrix();
-        toWorldMat.reset();
-        var transformMat;
-        if(time) {
-            //Todo implement value at time on transform properties
-            //transformMat = this._elem.finalTransform.mProp.getValueAtTime(time);
-            transformMat = this._elem.finalTransform.mProp;
-        } else {
-            transformMat = this._elem.finalTransform.mProp;
-        }
-        transformMat.applyToMatrix(toWorldMat);
-        if(this._elem.hierarchy && this._elem.hierarchy.length){
-            var i, len = this._elem.hierarchy.length;
-            for(i=0;i<len;i+=1){
-                this._elem.hierarchy[i].finalTransform.mProp.applyToMatrix(toWorldMat);
-            }
-            return toWorldMat.inversePoint(arr);
-        }
-        return toWorldMat.inversePoint(arr);
-    }*/
-
     function getElementToPoint(element, point) {
         if(element.comp && element.comp.finalTransform) {
         	point = getElementToPoint(element.comp, point);
@@ -93,8 +66,16 @@ function LayerBase(state) {
 		return getElementFromPoint(state.element, point);
 	}
 
+	function getData() {
+
+	}
+
+	function getTargetLayer() {
+		return state.element
+	}
+
 	var methods = {
-		getTargetElement: getTargetElement,
+		getTargetLayer: getTargetLayer,
 		toKeypathLayerPoint: toKeypathLayerPoint,
 		fromKeypathLayerPoint: fromKeypathLayerPoint
 	}
