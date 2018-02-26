@@ -1,82 +1,51 @@
 var KeyPathNode = require('../../key_path/KeyPathNode');
 var Property = require('../../property/Property');
 
-function Camera(element) {
-	console.log('element: ', element)
+function Camera(element, parent) {
 
 	var instance = {};
 
 	var state = {
 		element: element,
+		parent: parent,
 		properties: _buildPropertyMap()
-	}
-
-	function setPointOfInterest(value) {
-		Property(element.a).setValue(value);
-	}
-
-	function setZoom(value) {
-		Property(element.pe).setValue(value);
-	}
-
-	function setPosition(value) {
-		Property(element.p).setValue(value);
-	}
-
-	function setXRotation(value) {
-		Property(element.rx).setValue(value);
-	}
-
-	function setYRotation(value) {
-		Property(element.ry).setValue(value);
-	}
-
-	function setZRotation(value) {
-		Property(element.rz).setValue(value);
 	}
 
 	function _buildPropertyMap() {
 		return [
 			{
 				name: 'Point of Interest',
-				value: {
-					setValue: setPointOfInterest
-				}
+				value: Property(element.a, parent)
 			},
 			{
 				name: 'Zoom',
-				value: {
-					setValue: setZoom
-				}
+				value: Property(element.pe, parent)
 			},
 			{
 				name: 'Position',
-				value: {
-					setValue: setPosition
-				}
+				value: Property(element.p, parent)
 			},
 			{
 				name: 'X Rotation',
-				value: {
-					setValue: setXRotation
-				}
+				value: Property(element.rx, parent)
 			},
 			{
 				name: 'Y Rotation',
-				value: {
-					setValue: setYRotation
-				}
+				value: Property(element.ry, parent)
 			},
 			{
 				name: 'Z Rotation',
-				value: {
-					setValue: setZRotation
-				}
+				value: Property(element.rz, parent)
 			}
 		]
 	}
 
+	function getTargetLayer() {
+		return state.element;
+	}
+
 	var methods = {
+		getTargetLayer: getTargetLayer
 	}
 
 	return Object.assign(instance, KeyPathNode(state), methods);

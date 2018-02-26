@@ -1,7 +1,7 @@
 var key_path_separator = require('../enums/key_path_separator');
 var property_names = require('../enums/property_names');
 
-function KeyPathNode(state, node_type) {
+function KeyPathNode(state) {
 
 	function getPropertyByPath(selector, propertyPath) {
 		var instanceProperties = state.properties || [];
@@ -24,12 +24,22 @@ function KeyPathNode(state, node_type) {
 		return getPropertyByPath(selector);
 	}
 
-	var methods = {
-		hasProperty: hasProperty,
-		getProperty: getProperty
+	function fromKeypathLayerPoint(point) {
+		return state.parent.fromKeypathLayerPoint(point);
 	}
 
-	return methods;
+	function toKeypathLayerPoint(point) {
+		return state.parent.toKeypathLayerPoint(point);
+	}
+
+	var methods = {
+		hasProperty: hasProperty,
+		getProperty: getProperty,
+		fromKeypathLayerPoint: fromKeypathLayerPoint,
+		toKeypathLayerPoint: toKeypathLayerPoint
+	}
+
+	return Object.assign(state, methods);
 }
 
 module.exports = KeyPathNode;

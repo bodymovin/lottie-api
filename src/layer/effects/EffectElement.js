@@ -1,14 +1,8 @@
 var Property = require('../../property/Property');
 
-function EffectElement(effect) {
+function EffectElement(effect, parent) {
 
-	function setValue(value) {
-		Property(effect.p).setValue(value)
-	}
-
-	return {
-		setValue: setValue
-	}
+	return Property(effect.p, parent);
 }
 
 module.exports = EffectElement;

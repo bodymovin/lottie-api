@@ -1,23 +1,18 @@
 var KeyPathNode = require('../../key_path/KeyPathNode');
 var Property = require('../../property/Property');
 
-function ShapeRoundCorners(element) {
+function ShapeRoundCorners(element, parent) {
 
 	var state = {
+		parent: parent,
 		properties: _buildPropertyMap()
-	}
-
-	function setRadius(value) {
-		Property(element.rd).setValue(value);
 	}
 
 	function _buildPropertyMap() {
 		return [
 			{
 				name: 'Radius',
-				value: {
-					setValue: setRadius
-				}
+				value: Property(element.rd, parent)
 			}
 		]
 	}

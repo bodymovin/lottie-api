@@ -89,11 +89,7 @@ function KeyPathList(elements, node_type) {
 	}
 
 	function getPropertyAtIndex(index) {
-		if(node_type === 'layer') {
-			return elements[index];
-		} else {
-			return elements[index];
-		}
+		return elements[index];
 	}
 
 	var methods = {

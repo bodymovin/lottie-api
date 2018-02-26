@@ -2,42 +2,26 @@ var KeyPathNode = require('../../key_path/KeyPathNode');
 var Property = require('../../property/Property');
 var Transform = require('../transform/Transform');
 
-function ShapeRepeater(element) {
+function ShapeRepeater(element, parent) {
 
 	var state = {
+		parent: parent,
 		properties: _buildPropertyMap()
-	}
-
-	function setCopies(value) {
-		console.log('setCopies')
-		Property(element.c).setValue(value);
-	}
-
-	function setOffset(value) {
-		Property(element.o).setValue(value);
-	}
-
-	function setOffset(value) {
-		Property(element.o).setValue(value);
 	}
 
 	function _buildPropertyMap() {
 		return [
 			{
 				name: 'Copies',
-				value: {
-					setValue: setCopies
-				}
+				value: Property(element.c, parent)
 			},
 			{
 				name: 'Offset',
-				value: {
-					setValue: setOffset
-				}
+				value: Property(element.o, parent)
 			},
 			{
 				name: 'Transform',
-				value: Transform(element.tr)
+				value: Transform(element.tr, parent)
 			}
 		]
 	}

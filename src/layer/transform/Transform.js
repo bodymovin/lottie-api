@@ -1,121 +1,66 @@
 var KeyPathNode = require('../../key_path/KeyPathNode');
 var Property = require('../../property/Property');
 
-function Transform(props) {
+function Transform(props, parent) {
 	var state = {
 		properties: _buildPropertyMap()
-	}
-
-	function setAnchorPoint(value) {
-		Property(props.a).setValue(value);
-	}
-
-	function setPosition(value) {
-		Property(props.p).setValue(value);
-	}
-
-	function setScale(value) {
-		Property(props.s).setValue(value);
-	}
-
-	function setRotation(value) {
-		Property(props.r).setValue(value);
-	}
-
-	function setXRotation(value) {
-		Property(props.rx).setValue(value);
-	}
-
-	function setYRotation(value) {
-		Property(props.ry).setValue(value);
-	}
-
-	function setZRotation(value) {
-		Property(props.rz).setValue(value);
-	}
-
-	function setXPosition(value) {
-		Property(props.px).setValue(value);
-	}
-
-	function setYPosition(value) {
-		Property(props.py).setValue(value);
-	}
-
-	function setZPosition(value) {
-		Property(props.pz).setValue(value);
-	}
-
-	function setOpacity(value) {
-		Property(props.o).setValue(value);
 	}
 
 	function _buildPropertyMap() {
 		return [
 			{
+				name: 'Anchor Point',
+				value: Property(props.a, parent)
+			},
+			{
 				name: 'Position',
-				value: {
-					setValue: setPosition
-				}
+				value: Property(props.p, parent)
 			},
 			{
 				name: 'Scale',
-				value: {
-					setValue: setScale
-				}
+				value: Property(props.s, parent)
 			},
 			{
 				name: 'Rotation',
-				value: {
-					setValue: setRotation
-				}
+				value: Property(props.r, parent)
 			},
 			{
 				name: 'X Position',
-				value: {
-					setValue: setXPosition
-				}
+				value: Property(props.px, parent)
 			},
 			{
 				name: 'Y Position',
-				value: {
-					setValue: setYPosition
-				}
+				value: Property(props.py, parent)
 			},
 			{
 				name: 'Z Position',
-				value: {
-					setValue: setZPosition
-				}
+				value: Property(props.pz, parent)
 			},
 			{
 				name: 'X Rotation',
-				value: {
-					setValue: setXRotation
-				}
+				value: Property(props.rx, parent)
 			},
 			{
 				name: 'Y Rotation',
-				value: {
-					setValue: setYRotation
-				}
+				value: Property(props.ry, parent)
 			},
 			{
 				name: 'Z Rotation',
-				value: {
-					setValue: setZRotation
-				}
+				value: Property(props.rz, parent)
 			},
 			{
 				name: 'Opacity',
-				value: {
-					setValue: setOpacity
-				}
+				value: Property(props.po, parent)
 			}
 		]
 	}
 
+	function getTargetTransform() {
+		return props;
+	}
+
 	var methods = {
+		getTargetTransform: getTargetTransform
 	}
 
 	return Object.assign(methods, KeyPathNode(state));

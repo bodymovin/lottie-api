@@ -3,12 +3,13 @@ var LayerBase = require('../LayerBase');
 var layer_api = require('../../helpers/layerAPIBuilder');
 var Property = require('../../property/Property');
 
-function Composition(element) {
+function Composition(element, parent) {
 
 	var instance = {};
 
 	var state = {
 		element: element,
+		parent: parent,
 		properties: _buildPropertyMap()
 	}
 
@@ -24,7 +25,7 @@ function Composition(element) {
 
 		function getLayerApi() {
 			if(!_layerApi) {
-				_layerApi = layer_api(element.elements[index])
+				_layerApi = layer_api(element.elements[index], state)
 			}
 			return _layerApi
 		}

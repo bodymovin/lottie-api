@@ -2,11 +2,13 @@ var KeyPathNode = require('../../key_path/KeyPathNode');
 var Property = require('../../property/Property');
 var TextAnimator = require('./TextAnimator');
 
-function Text(element) {
+function Text(element, parent) {
 
 	var instance = {}
 
 	var state = {
+		element: element,
+		parent: parent,
 		properties: _buildPropertyMap()
 	}
 

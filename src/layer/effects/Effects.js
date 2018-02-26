@@ -2,15 +2,16 @@ var KeyPathNode = require('../../key_path/KeyPathNode');
 var Property = require('../../property/Property');
 var EffectElement = require('./EffectElement');
 
-function Effects(effects) {
+function Effects(effects, parent) {
 
 	var state = {
+		parent: parent,
 		properties: buildProperties()
 	}
 
 	function getValue(effectData, index) {
 		var nm = effectData.data ? effectData.data.nm : index.toString();
-		var effectElement = effectData.data ? Effects(effectData.effectElements) : EffectElement(effectData);
+		var effectElement = effectData.data ? Effects(effectData.effectElements, parent) : Property(effectData.p, parent);
 		return {
 			name: nm,
 			value: effectElement

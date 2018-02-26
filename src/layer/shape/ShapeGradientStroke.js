@@ -1,83 +1,42 @@
 var KeyPathNode = require('../../key_path/KeyPathNode');
 var Property = require('../../property/Property');
 
-function ShapeGradientStroke(element) {
+function ShapeGradientStroke(element, parent) {
 
 	var state = {
+		parent: parent,
 		properties: _buildPropertyMap()
-	}
-
-	function setStartPoint(value) {
-		Property(element.s).setValue(value);
-	}
-
-	function setEndPoint(value) {
-		Property(element.e).setValue(value);
-	}
-
-	function setOpacity(value) {
-		Property(element.o).setValue(value);
-	}
-
-	function setHighlightLength(value) {
-		Property(element.h).setValue(value);
-	}
-
-	function setHighlightAngle(value) {
-		Property(element.a).setValue(value);
-	}
-
-	function setColors(value) {
-		Property(element.g.prop).setValue(value);
-	}
-
-	function setStrokeWidth(value) {
-		Property(element.w).setValue(value);
 	}
 
 	function _buildPropertyMap() {
 		return [
 			{
 				name: 'Start Point',
-				value: {
-					setValue: setStartPoint
-				}
+				value: Property(element.s, parent)
 			},
 			{
 				name: 'End Point',
-				value: {
-					setValue: setEndPoint
-				}
+				value: Property(element.e, parent)
 			},
 			{
 				name: 'Opacity',
-				value: {
-					setValue: setOpacity
-				}
+				value: Property(element.o, parent)
 			},
 			{
 				name: 'Highlight Length',
-				value: {
-					setValue: setHighlightLength
-				}
+				value: Property(element.h, parent)
 			},
 			{
 				name: 'Highlight Angle',
-				value: {
-					setValue: setHighlightAngle
-				}
+				value: Property(element.a, parent)
 			},
 			{
 				name: 'Colors',
-				value: {
-					setValue: setColors
-				}
+				value: Property(element.g.prop, parent)
 			},
 			{
 				name: 'Stroke Width',
-				value: {
-					setValue: setStrokeWidth
-				}
+				value: Property(element.w, parent)
 			}
 		]
 	}

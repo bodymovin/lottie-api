@@ -1,33 +1,22 @@
 var KeyPathNode = require('../../key_path/KeyPathNode');
 var Property = require('../../property/Property');
 
-function ShapeEllipse(element) {
+function ShapeEllipse(element, parent) {
 
 	var state = {
+		parent: parent,
 		properties: _buildPropertyMap()
-	}
-
-	function setSize(value) {
-		Property(element.sh.s).setValue(value);
-	}
-
-	function setPosition(value) {
-		Property(element.sh.p).setValue(value);
 	}
 
 	function _buildPropertyMap() {
 		return [
 			{
 				name: 'Size',
-				value: {
-					setValue: setSize
-				}
+				value: Property(element.sh.s, parent)
 			},
 			{
 				name: 'Position',
-				value: {
-					setValue: setPosition
-				}
+				value: Property(element.sh.p, parent)
 			}
 		]
 	}

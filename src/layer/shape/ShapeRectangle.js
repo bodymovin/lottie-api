@@ -1,43 +1,26 @@
 var KeyPathNode = require('../../key_path/KeyPathNode');
 var Property = require('../../property/Property');
 
-function ShapeRectangle(element) {
+function ShapeRectangle(element, parent) {
 
 	var state = {
+		parent: parent,
 		properties: _buildPropertyMap()
-	}
-
-	function setSize(value) {
-		Property(element.sh.s).setValue(value);
-	}
-
-	function setPosition(value) {
-		Property(element.sh.p).setValue(value);
-	}
-
-	function setRoundness(value) {
-		Property(element.sh.r).setValue(value);
 	}
 
 	function _buildPropertyMap() {
 		return [
 			{
 				name: 'Size',
-				value: {
-					setValue: setSize
-				}
+				value: Property(element.sh.s, parent)
 			},
 			{
 				name: 'Position',
-				value: {
-					setValue: setPosition
-				}
+				value: Property(element.sh.p, parent)
 			},
 			{
 				name: 'Roundness',
-				value: {
-					setValue: setRoundness
-				}
+				value: Property(element.sh.r, parent)
 			}
 		]
 	}

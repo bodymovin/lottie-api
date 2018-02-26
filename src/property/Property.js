@@ -1,6 +1,14 @@
-function Property(property) {
+var KeyPathNode = require('../key_path/KeyPathNode');
+
+function Property(property, parent) {
+
+	var state = {
+		property: property,
+		parent: parent
+	}
 	
 	function setValue(value) {
+		var property = state.property;
 		if(!property || !property.addEffect) {
 			return;
 		}
@@ -13,11 +21,16 @@ function Property(property) {
 		}
 	}
 
-	var methods = {
-		setValue: setValue
+	function getValue() {
+		return property.v;
 	}
 
-	return Object.assign({}, methods);
+	var methods = {
+		setValue: setValue,
+		getValue: getValue
+	}
+
+	return Object.assign(state, methods, KeyPathNode(state));
 }
 
 module.exports = Property;

@@ -1,32 +1,23 @@
 var KeyPathNode = require('../../key_path/KeyPathNode');
 var Property = require('../../property/Property');
 
-function ShapeFill(element) {
+function ShapeFill(element, parent) {
 
 	var state = {
+		parent: parent,
 		properties: _buildPropertyMap()
-	}
-
-	function setColor(value) {
-		Property(element.c).setValue(value);
-	}
-
-	function setOpacity(value) {
-		Property(element.o).setValue(value);
 	}
 
 	function _buildPropertyMap() {
 		return [
 			{
-				name: 'color',
-				value: {
-					setValue: setColor
-				}
+				name: 'Color',
+				value: Property(element.c, parent)
 			},
 			{
-				name: 'opacity',
+				name: 'Opacity',
 				value: {
-					setValue: setOpacity
+					setValue: Property(element.o, parent)
 				}
 			}
 		]

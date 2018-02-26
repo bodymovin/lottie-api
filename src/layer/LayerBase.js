@@ -5,8 +5,8 @@ var Matrix = require('../helpers/transformationMatrix');
 
 function LayerBase(state) {
 
-	var transform = Transform(state.element.finalTransform.mProp);
-	var effects = Effects(state.element.effectsManager.effectElements);
+	var transform = Transform(state.element.finalTransform.mProp, state);
+	var effects = Effects(state.element.effectsManager.effectElements || [], state);
 
 	function _buildPropertyMap() {
 		state.properties.push({
@@ -24,13 +24,16 @@ function LayerBase(state) {
 		})
 	}
 
-    function getElementToPoint(element, point) {
-        if(element.comp && element.comp.finalTransform) {
-        	point = getElementToPoint(element.comp, point);
+    function getElementToPoint(point) {
+    }
+
+	function toKeypathLayerPoint(point) {
+		var element = state.element;
+    	if(state.parent.toKeypathLayerPoint) {
+        	point = state.parent.toKeypathLayerPoint(point);
         }
     	var toWorldMat = Matrix();
-        var transformMat;
-        transformMat = element.finalTransform.mProp;
+        var transformMat = state.getProperty('Transform').getTargetTransform();
         transformMat.applyToMatrix(toWorldMat);
         if(element.hierarchy && element.hierarchy.length){
             var i, len = element.hierarchy.length;
@@ -39,15 +42,12 @@ function LayerBase(state) {
             }
         }
         return toWorldMat.inversePoint(point);
-    }
-
-	function toKeypathLayerPoint(point) {
-		return getElementToPoint(state.element, point);
 	}
 
-    function getElementFromPoint(element, point) {
-    	var toWorldMat = Matrix();
-        var transformMat = element.finalTransform.mProp;
+	function fromKeypathLayerPoint(point) {
+		var element = state.element;
+		var toWorldMat = Matrix();
+        var transformMat = state.getProperty('Transform').getTargetTransform();
         transformMat.applyToMatrix(toWorldMat);
         if(element.hierarchy && element.hierarchy.length){
             var i, len = element.hierarchy.length;
@@ -56,22 +56,15 @@ function LayerBase(state) {
             }
         }
         point = toWorldMat.applyToPointArray(point[0],point[1],point[2]||0);
-        if(element.comp && element.comp.finalTransform) {
-        	point = getElementFromPoint(element.comp, point);
+        if(state.parent.fromKeypathLayerPoint) {
+        	return state.parent.fromKeypathLayerPoint(point);
+        } else {
+        	return point;
         }
-        return point;
-    }
-
-	function fromKeypathLayerPoint(point) {
-		return getElementFromPoint(state.element, point);
-	}
-
-	function getData() {
-
 	}
 
 	function getTargetLayer() {
-		return state.element
+		return state.element;
 	}
 
 	var methods = {
@@ -82,7 +75,7 @@ function LayerBase(state) {
 
 	_buildPropertyMap();
 
-	return Object.assign(methods, KeyPathNode(state));
+	return Object.assign(state, KeyPathNode(state), methods);
 }
 
 module.exports = LayerBase;

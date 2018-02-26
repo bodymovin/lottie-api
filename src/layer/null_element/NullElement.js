@@ -1,11 +1,12 @@
 var LayerBase = require('../LayerBase');
 
-function NullElement(element) {
+function NullElement(element, parent) {
 
 	var instance = {};
 
 	var state = {
 		element: element,
+		parent: parent,
 		properties: _buildPropertyMap()
 	}
 

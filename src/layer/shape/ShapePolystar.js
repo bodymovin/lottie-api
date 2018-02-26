@@ -1,84 +1,42 @@
 var KeyPathNode = require('../../key_path/KeyPathNode');
 var Property = require('../../property/Property');
 
-function ShapePolystar(element) {
-	console.log(element);
+function ShapePolystar(element, parent) {
 
 	var state = {
+		parent: parent,
 		properties: _buildPropertyMap()
-	}
-
-	function setPoints(value) {
-		Property(element.sh.pt).setValue(value);
-	}
-
-	function setPosition(value) {
-		Property(element.sh.p).setValue(value);
-	}
-
-	function setRotation(value) {
-		Property(element.sh.r).setValue(value);
-	}
-
-	function setInnerRadius(value) {
-		Property(element.sh.ir).setValue(value);
-	}
-
-	function setOuterRadius(value) {
-		Property(element.sh.or).setValue(value);
-	}
-
-	function setInnerRoundness(value) {
-		Property(element.sh.is).setValue(value);
-	}
-
-	function setOuterRoundness(value) {
-		Property(element.sh.os).setValue(value);
 	}
 
 	function _buildPropertyMap() {
 		return [
 			{
 				name: 'Points',
-				value: {
-					setValue: setPoints
-				}
+				value: Property(element.sh.pt, parent)
 			},
 			{
 				name: 'Position',
-				value: {
-					setValue: setPosition
-				}
+				value: Property(element.sh.p, parent)
 			},
 			{
 				name: 'Rotation',
-				value: {
-					setValue: setRotation
-				}
+				value: Property(element.sh.r, parent)
 			},
 			{
 				name: 'Inner Radius',
-				value: {
-					setValue: setInnerRadius
-				}
+				value: Property(element.sh.ir, parent)
 			},
 			{
 				name: 'Outer Radius',
-				value: {
-					setValue: setOuterRadius
-				}
+				value: Property(element.sh.or, parent)
 			},
 			{
 				name: 'Inner Roundness',
-				value: {
-					setValue: setInnerRoundness
-				}
+				value: Property(element.sh.is, parent)
 			},
 			{
 				name: 'Outer Roundness',
-				value: {
-					setValue: setOuterRoundness
-				}
+				value: Property(element.sh.os, parent)
 			}
 		]
 	}

@@ -1,9 +1,10 @@
 var KeyPathNode = require('../../key_path/KeyPathNode');
 var Property = require('../../property/Property');
 
-function ShapePath(element) {
+function ShapePath(element, parent) {
 
 	var state = {
+		parent: parent,
 		properties: _buildPropertyMap()
 	}
 
@@ -15,9 +16,7 @@ function ShapePath(element) {
 		return [
 			{
 				name: 'path',
-				value: {
-					setValue: setPath
-				}
+				value:Property(element.sh, parent)
 			}
 		]
 	}

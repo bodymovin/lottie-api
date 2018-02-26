@@ -1,11 +1,10 @@
 var LayerBase = require('../LayerBase');
 
-function Solid(element) {
-
-	var instance = {};
+function Solid(element, parent) {
 
 	var state = {
 		element: element,
+		parent: parent,
 		properties: _buildPropertyMap()
 	}
 
@@ -17,7 +16,7 @@ function Solid(element) {
 	var methods = {
 	}
 
-	return Object.assign(instance, LayerBase(state), methods);
+	return Object.assign({}, LayerBase(state), methods);
 }
 
 module.exports = Solid;

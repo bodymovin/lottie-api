@@ -4,14 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build-debug": "browserify src/index.js -d --s lottie_api > dist/lottie_api.js",
-    "build-min": "browserify src/index.js --s lottie_api | uglifyjs -c > dist/lottie_api.min.js",
+    "build-debug": "browserify src/index.js -t [ babelify --presets [ env ] ] -d --s lottie_api > dist/lottie_api.js",
+    "build-min": "browserify src/index.js -t [ babelify --presets [ env ] ] | uglifyjs -c > dist/lottie_api.min.js",
     "build": "npm run build-debug && npm run build-min",
     "watch": "watchify src/index.js -d --s lottie_api -o dist/lottie_api.js -v"
   },
   "author": "Hernan Torrisi <hernantorrisi@gmail.com> (http://codepen.io/airnan/)",
   "license": "ISC",
   "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babelify": "^8.0.0",
     "browserify": "^14.5.0",
     "uglify-js": "^3.3.4",
     "watchify": "^3.9.0"

@@ -1,43 +1,26 @@
 var KeyPathNode = require('../../key_path/KeyPathNode');
 var Property = require('../../property/Property');
 
-function ShapeTrimPaths(element) {
+function ShapeTrimPaths(element, parent) {
 
 	var state = {
+		parent: parent,
 		properties: _buildPropertyMap()
-	}
-
-	function setStart(value) {
-		Property(element.s).setValue(value);
-	}
-
-	function setEnd(value) {
-		Property(element.e).setValue(value);
-	}
-
-	function setOffset(value) {
-		Property(element.o).setValue(value);
 	}
 
 	function _buildPropertyMap() {
 		return [
 			{
 				name: 'Start',
-				value: {
-					setValue: setStart
-				}
+				value: Property(element.s, parent)
 			},
 			{
 				name: 'End',
-				value: {
-					setValue: setEnd
-				}
+				value: Property(element.e, parent)
 			},
 			{
 				name: 'Offset',
-				value: {
-					setValue: setOffset
-				}
+				value: Property(element.o, parent)
 			}
 		]
 	}
