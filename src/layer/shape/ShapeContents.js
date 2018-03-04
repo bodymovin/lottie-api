@@ -20,41 +20,50 @@ function ShapeContents(shapesData, shapes, parent) {
 		parent: parent
 	}
 
+	var cachedShapeProperties = [];
+
 	function buildShapeObject(shape, index) {
 		var ob = {
 			name: shape.nm
 		}
 		Object.defineProperty(ob, 'value', {
-		   get() { 
+		   get() {
+		   	if(cachedShapeProperties[index]) {
+		   		return cachedShapeProperties[index];
+		   	} else {
+		   		var property;
+		   	}
 	   		if(shape.ty === 'gr') {
-	   			return ShapeContents(shapesData[index].it, shapes[index].it, state);
+	   			property = ShapeContents(shapesData[index].it, shapes[index].it, state);
 	   		} else if(shape.ty === 'rc') {
-	   			return ShapeRectangle(shapes[index], state);
+	   			property = ShapeRectangle(shapes[index], state);
 	   		} else if(shape.ty === 'el') {
-	   			return ShapeEllipse(shapes[index], state);
+	   			property = ShapeEllipse(shapes[index], state);
 	   		} else if(shape.ty === 'fl') {
-	   			return ShapeFill(shapes[index], state);
+	   			property = ShapeFill(shapes[index], state);
 	   		} else if(shape.ty === 'st') {
-	   			return ShapeStroke(shapes[index], state);
+	   			property = ShapeStroke(shapes[index], state);
 	   		} else if(shape.ty === 'gf') {
-	   			return ShapeGradientFill(shapes[index], state);
+	   			property = ShapeGradientFill(shapes[index], state);
 	   		} else if(shape.ty === 'gs') {
-	   			return ShapeGradientStroke(shapes[index], state);
+	   			property = ShapeGradientStroke(shapes[index], state);
 	   		} else if(shape.ty === 'tm') {
-	   			return ShapeTrimPaths(shapes[index], state);
+	   			property = ShapeTrimPaths(shapes[index], state);
 	   		} else if(shape.ty === 'rp') {
-	   			return ShapeRepeater(shapes[index], state);
+	   			property = ShapeRepeater(shapes[index], state);
 	   		} else if(shape.ty === 'sr') {
-	   			return ShapePolystar(shapes[index], state);
+	   			property = ShapePolystar(shapes[index], state);
 	   		} else if(shape.ty === 'rd') {
-	   			return ShapeRoundCorners(shapes[index], state);
+	   			property = ShapeRoundCorners(shapes[index], state);
 	   		} else if(shape.ty === 'sh') {
-	   			return ShapePath(shapes[index], state);
+	   			property = ShapePath(shapes[index], state);
 	   		} else if(shape.ty === 'tr') {
-	   			return Transform(shapes[index].transform.mProps, state);
+	   			property = Transform(shapes[index].transform.mProps, state);
 	   		} else {
 	   			console.log(shape.ty);
 	   		}
+	   		cachedShapeProperties[index] = property;
+	   		return property;
 		   }
 		});
 		return ob

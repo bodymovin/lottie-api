@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build-debug": "browserify src/index.js -t [ babelify --presets [ env ] ] -d --s lottie_api > dist/lottie_api.js",
-    "build-min": "browserify src/index.js -t [ babelify --presets [ env ] ] | uglifyjs -c > dist/lottie_api.min.js",
+    "build-min": "browserify src/index.js -t [ babelify --presets [ env ] ]  --s lottie_api | uglifyjs -c > dist/lottie_api.min.js",
     "build": "npm run build-debug && npm run build-min",
     "watch": "watchify src/index.js -d --s lottie_api -o dist/lottie_api.js -v"
   },

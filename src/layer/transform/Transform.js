@@ -13,6 +13,10 @@ function Transform(props, parent) {
 				value: Property(props.a, parent)
 			},
 			{
+				name: 'Point of Interest',
+				value: Property(props.a, parent)
+			},
+			{
 				name: 'Position',
 				value: Property(props.p, parent)
 			},

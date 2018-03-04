@@ -1,7 +1,6 @@
 var KeyPathNode = require('../key_path/KeyPathNode');
 
 function Property(property, parent) {
-
 	var state = {
 		property: property,
 		parent: parent
