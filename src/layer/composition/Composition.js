@@ -2,6 +2,7 @@ var KeyPathList = require('../../key_path/KeyPathList');
 var LayerBase = require('../LayerBase');
 var layer_api = require('../../helpers/layerAPIBuilder');
 var Property = require('../../property/Property');
+var TimeRemap = require('./TimeRemap');
 
 function Composition(element, parent) {
 
@@ -11,10 +12,6 @@ function Composition(element, parent) {
 		element: element,
 		parent: parent,
 		properties: _buildPropertyMap()
-	}
-
-	function setTimeRemap(value) {
-		Property(element.tm).setValue(value);
 	}
 
 	function buildLayerApi(layer, index) {
@@ -42,9 +39,7 @@ function Composition(element, parent) {
 		return [
 			{
 				name: 'Time Remap',
-				value: {
-					setValue: setTimeRemap
-				}
+				value: TimeRemap(element.tm)
 			}
 		].concat(compositionLayers)
 	}

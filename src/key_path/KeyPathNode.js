@@ -38,8 +38,7 @@ function KeyPathNode(state) {
 		fromKeypathLayerPoint: fromKeypathLayerPoint,
 		toKeypathLayerPoint: toKeypathLayerPoint
 	}
-
-	return Object.assign(state, methods);
+	return methods;
 }
 
 module.exports = KeyPathNode;
