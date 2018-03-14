@@ -105,7 +105,7 @@ function TimeRemap(property, parent) {
 
 	function getCurrentTime() {
 		if(_isCallbackAdded) {
-			return elapsedTime;
+			return currentTime;
 		} else {
 			return property.v / property.mult;
 		}

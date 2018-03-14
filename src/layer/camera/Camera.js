@@ -36,6 +36,10 @@ function Camera(element, parent) {
 			{
 				name: 'Z Rotation',
 				value: Property(element.rz, parent)
+			},
+			{
+				name: 'Orientation',
+				value: Property(element.or, parent)
 			}
 		]
 	}
