@@ -6,11 +6,11 @@ function ValueProperty(state) {
 			return;
 		}
 		if (typeof value === 'function') {
-			property.addEffect(value);
+			return property.addEffect(value);
 		} else if (property.propType === 'multidimensional' && typeof value === 'object' && value.length === 2) {
-			property.addEffect(function(){return value});
+			return property.addEffect(function(){return value});
 		} else if (property.propType === 'unidimensional' && typeof value === 'number') {
-			property.addEffect(function(){return value});
+			return property.addEffect(function(){return value});
 		}
 	}
 

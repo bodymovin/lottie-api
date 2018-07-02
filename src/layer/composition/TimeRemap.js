@@ -18,6 +18,11 @@ function TimeRemap(property, parent) {
 	var _paused = false;
 	var _isDebugging = false;
 	var queuedSegments = [];
+	var _destroyFunction;
+	var enterFrameCallback = null;
+	var enterFrameEvent = {
+		time: -1
+	}
 
 	function playSegment(init, end, clear) {
 		_paused = false;
@@ -64,7 +69,12 @@ function TimeRemap(property, parent) {
 					} else if(!_loop) {
 						currentTime = currentSegmentEnd;
 					} else {
-						currentTime = currentSegmentInit + (currentTime - currentSegmentEnd);
+						/*currentTime -= Math.floor(currentTime / (currentSegmentEnd - currentSegmentInit)) * (currentSegmentEnd - currentSegmentInit);
+						currentTime = currentSegmentInit + currentTime;*/
+						currentTime = currentTime % (currentSegmentEnd - currentSegmentInit);
+						//currentTime = currentSegmentInit + (currentTime);
+						//currentTime = currentSegmentInit + (currentTime - currentSegmentEnd);
+						 //console.log('CT: ', currentTime) 
 					}
 				}
 			} else {
@@ -84,13 +94,17 @@ function TimeRemap(property, parent) {
 				console.log(currentTime)
 			}
 		}
+		if(instance.onEnterFrame && enterFrameEvent.time !== currentTime) {
+			enterFrameEvent.time = currentTime;
+			instance.onEnterFrame(enterFrameEvent);
+		}
 		return currentTime;
 	}
 
 	function addCallback() {
 		if(!_isCallbackAdded) {
 			_isCallbackAdded = true;
-			instance.setValue(_segmentPlayer, _isDebugging)
+			_destroyFunction = instance.setValue(_segmentPlayer, _isDebugging)
 		}
 	}
 
@@ -127,6 +141,14 @@ function TimeRemap(property, parent) {
 		_paused = true;
 	}
 
+	function destroy() {
+		if(_destroyFunction) {
+			_destroyFunction();
+			state.property = null;
+			state.parent = null;
+		}
+	}
+
 	var methods = {
 		playSegment: playSegment,
 		playTo: playTo,
@@ -136,7 +158,9 @@ function TimeRemap(property, parent) {
 		setSpeed: setSpeed,
 		pause: pause,
 		setDebugging: setDebugging,
-		getCurrentTime: getCurrentTime
+		getCurrentTime: getCurrentTime,
+		onEnterFrame: null,
+		destroy: destroy
 	}
 
 	var instance = {}

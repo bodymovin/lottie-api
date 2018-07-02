@@ -7,7 +7,14 @@ function Property(property, parent) {
 		parent: parent
 	}
 
-	var methods = {}
+	function destroy() {
+		state.property = null;
+		state.parent = null;
+	}
+
+	var methods = {
+		destroy: destroy
+	}
 
 	return Object.assign({}, methods, ValueProperty(state), KeyPathNode(state));
 }
