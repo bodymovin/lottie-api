@@ -54,7 +54,7 @@ function Transform(props, parent) {
 			},
 			{
 				name: 'Opacity',
-				value: Property(props.po, parent)
+				value: Property(props.o, parent)
 			}
 		]
 	}
