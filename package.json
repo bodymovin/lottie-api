@@ -2,7 +2,7 @@
   "name": "lottie-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./build/player/lottie_api.js",
   "scripts": {
     "build-debug": "browserify src/index.js -t [ babelify --presets [ env ] ] -d --s lottie_api > dist/lottie_api.js",
     "build-min": "browserify src/index.js -t [ babelify --presets [ env ] ]  --s lottie_api | uglifyjs -c > dist/lottie_api.min.js",
