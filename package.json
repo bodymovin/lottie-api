@@ -1,6 +1,6 @@
 {
   "name": "lottie-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "./build/player/lottie_api.js",
   "scripts": {
@@ -19,9 +19,5 @@
     "uglify-js": "^3.3.4",
     "watchify": "^3.9.0"
   },
-  "dependencies": {
-    "gulp": "^3.9.1",
-    "gulp-uglify": "^3.0.0",
-    "gulp-usemin": "^0.3.29"
-  }
+  "dependencies": {}
 }
