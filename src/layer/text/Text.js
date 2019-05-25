@@ -14,13 +14,15 @@ function Text(element, parent) {
 
 	function setDocumentData(_function) {
 		var previousValue;
-		setInterval(function() {
+		var textDocumentUpdater = function(data) {
 			var newValue = _function(element.textProperty.currentData);
 			if (previousValue !== newValue) {
-				element.updateDocumentData(newValue)
+				previousValue = newValue;
+				return Object.assign({}, data, newValue, {__complete: false});
 			}
-		}, 500)
-		console.log(element)
+			return data
+		}
+		element.textProperty.addEffect(textDocumentUpdater);
 	}
 
 	function addAnimators() {
