@@ -10,15 +10,15 @@ function ShapeStroke(element, parent) {
 	function _buildPropertyMap() {
 		return [
 			{
-				name: 'color',
+				name: 'Color',
 				value: Property(element.c, parent)
 			},
 			{
-				name: 'stroke width',
+				name: 'Stroke Width',
 				value: Property(element.w, parent)
 			},
 			{
-				name: 'opacity',
+				name: 'Opacity',
 				value: Property(element.o, parent)
 			}
 		]
